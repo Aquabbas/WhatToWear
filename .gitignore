@@ -1,0 +1,36 @@
+# Ignore Python byte code
+*.pyc
+__pycache__/
+
+# Ignore Django generated files
+*.sqlite3
+*.pyc
+*.pyo
+*.pyd
+*.pyc
+*.swp
+*.swo
+*.log
+*.bak
+
+# Ignore secret keys and sensitive information
+.env
+
+# Ignore static files and media uploads
+static/
+media/
+
+# Ignore Node.js dependencies
+node_modules/
+
+# Ignore build artifacts
+build/
+dist/
+
+# Ignore editor-specific files
+.vscode/
+.idea/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
