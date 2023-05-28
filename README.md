@@ -5,7 +5,7 @@
 ### Application Scope
 - WhatToWear is a web application that provides clothing suggestions for Runs/Walks based on weather conditions.
 - The application will utilize weather data, including temperature, precipitation, sky conditions, wind conditions, time of day, humidity level, and UV levels, to generate appropriate clothing recommendations.
-- The weather data will be fetched from Apple's WeatherKit API.
+- The weather data will be fetched from Apple's Visual Crossing API.
 - The application will consider user preferences such as gender and desired comfort level (cold/hot) when suggesting clothing options.
 - The application will focus specifically on providing recommendations for Runs/Walks.
 
@@ -16,7 +16,7 @@
    - Provide an appealing and intuitive user experience.
 
 2. Weather Data Integration:
-   - Integrate Apple's WeatherKit API to fetch real-time weather data based on the user's location or a location of their choice.
+   - Integrate Apple's Visual Crossing API to fetch real-time weather data based on the user's location or a location of their choice.
    - Retrieve weather information including temperature, precipitation, sky conditions, wind conditions, time of day, humidity level, and UV levels.
 
 3. Recommendation Engine:
@@ -25,7 +25,7 @@
    - Incorporate gender-specific recommendations if desired.
 
 4. Backend Development:
-   - Develop a backend server using Python and a web framework like Django or Flask to handle user requests, process data, and interact with the WeatherKit API.
+   - Develop a backend server using Python and a web framework like Django or Flask to handle user requests, process data, and interact with the Visual Crossing API.
    - Implement necessary API endpoints to fetch weather data and deliver clothing recommendations to the frontend.
 
 5. Frontend Development:
@@ -35,13 +35,13 @@
 
 6. Testing and Debugging:
    - Implement comprehensive testing strategies to ensure the correctness and reliability of the application's functionalities.
-   - Test the integration with the WeatherKit API and verify the accuracy of the clothing recommendations.
+   - Test the integration with the Visual Crossing API and verify the accuracy of the clothing recommendations.
    - Use debugging techniques and tools to identify and resolve any issues or errors.
 
 7. Deployment and Maintenance:
    - Choose a hosting platform or server to deploy your web application.
    - Set up necessary infrastructure and configurations for deployment.
-   - Regularly monitor and maintain the application, including updating weather data, addressing any bug fixes or performance improvements, and ensuring the integration with the WeatherKit API remains functional.
+   - Regularly monitor and maintain the application, including updating weather data, addressing any bug fixes or performance improvements, and ensuring the integration with the Visual Crossing API remains functional.
 
 ## Step 2: Design the Application Architecture
 
@@ -54,12 +54,12 @@ Let's proceed with designing the application architecture for your WhatToWear we
 
 2. Backend:
    - The backend of your application will be developed using Python, utilizing a web framework such as Django or Flask.
-   - Create the necessary backend components to handle user requests, process data, and interact with the WeatherKit API.
-   - Implement API endpoints to receive user preferences, fetch weather data from the WeatherKit API, and send clothing recommendations to the frontend.
+   - Create the necessary backend components to handle user requests, process data, and interact with the Visual Crossing API.
+   - Implement API endpoints to receive user preferences, fetch weather data from the Visual Crossing API, and send clothing recommendations to the frontend.
 
-3. WeatherKit API Integration:
-   - Integrate Apple's WeatherKit API to fetch real-time weather data based on the user's location or a location of their choice.
-   - Use the appropriate libraries or modules in Python to make HTTP requests to the WeatherKit API and retrieve weather information.
+3. Visual Crossing API Integration:
+   - Integrate Apple's Visual Crossing API to fetch real-time weather data based on the user's location or a location of their choice.
+   - Use the appropriate libraries or modules in Python to make HTTP requests to the Visual Crossing API and retrieve weather information.
    - Process the received weather data and extract the relevant parameters such as temperature, precipitation, sky conditions, wind conditions, time of day, humidity level, and UV levels.
 
 4. Recommendation Engine:
@@ -75,10 +75,10 @@ Let's proceed with designing the application architecture for your WhatToWear we
 6. Deployment and Hosting:
    - Select a hosting platform or server to deploy your web application, such as Heroku, AWS, or Azure.
    - Configure the deployment environment and ensure all necessary dependencies are included.
-   - Set up appropriate security measures and configurations to protect user data and ensure secure communication with the WeatherKit API.
+   - Set up appropriate security measures and configurations to protect user data and ensure secure communication with the Visual Crossing API.
 
 7. Third-Party Libraries and Tools:
-   - Explore and utilize relevant Python libraries for web development, such as Django or Flask for the backend, and libraries like requests for making HTTP requests to the WeatherKit API.
+   - Explore and utilize relevant Python libraries for web development, such as Django or Flask for the backend, and libraries like requests for making HTTP requests to the Visual Crossing API.
    - Leverage React libraries and tools for frontend development, such as Axios for making API calls to the backend.
    - Consider additional libraries or tools for UI components, data visualization, or styling to enhance the user experience.
 
