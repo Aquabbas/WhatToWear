@@ -1,17 +1,20 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+from dotenv import load_dotenv
+from typing import Optional
+
 
 import requests
 import os
-from dotenv import load_dotenv
 
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import LabelEncoder
 
-
-
 # Load environment variables from .env file
 load_dotenv()
+
+
+
 
 class UserPreferences(BaseModel):
     gender: str
@@ -24,12 +27,10 @@ class WeatherData(BaseModel):
     precipitation: float
     cloudcover: float
     conditions: str
-    windgust: float
+    windgust: Optional[float]
     windspeed: float
     uvindex: float
     humidity: float
-    time_of_day: str
-    uv_levels: float
 
 
 class ClothingItems(BaseModel):
@@ -53,13 +54,7 @@ class ClothingRecommendation:
         # Process the weather_data and user_preferences to generate recommendations
         # Implement the logic to analyze weather conditions and user preferences
 
-        # Example: Generate a recommendation based on weather temperature
-        """ if weather_data.temperature < 60:
-            recommendation = "Wear a sweater or jacket."
-        else:
-            recommendation = "Wear a t-shirt or light clothing."
-
-        return recommendation """
+        
         # Step 1: Check the gender of the runner and provide general recommendations
         if user_preferences.gender == "male":
             recommendation = "T-shirt, shorts, and running shoes."
@@ -101,7 +96,7 @@ class ClothingRecommendation:
             recommendation += " Adjust clothing choices according to the weather."
 
         # Step 6: Consider wind speed and gust speed
-        if weather_data.windgust > 20 or weather_data.windspeed > 15:
+        if weather_data.windgust is not None and (weather_data.windgust > 20 or weather_data.windspeed > 15):
             recommendation += " Wear a wind-resistant jacket or layer to protect against wind chill."
         
         # Step 7: Consider humidity and provide recommendations
