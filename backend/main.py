@@ -20,11 +20,15 @@ class UserPreferences(BaseModel):
 
 class WeatherData(BaseModel):
     temperature: float
+    precipitation_probability: float
     precipitation: float
-    sky_conditions: str
-    wind_conditions: str
+    cloudcover: float
+    conditions: str
+    windgust: float
+    windspeed: float
+    uvindex: float
+    humidity: float
     time_of_day: str
-    humidity_level: float
     uv_levels: float
 
 
@@ -35,6 +39,7 @@ class ClothingItems(BaseModel):
     hands: str
     legs: str
     feet: str
+
 
 class ClothingRecommendation:
     def __init__(self):
@@ -49,11 +54,64 @@ class ClothingRecommendation:
         # Implement the logic to analyze weather conditions and user preferences
 
         # Example: Generate a recommendation based on weather temperature
-        if weather_data.temperature < 60:
+        """ if weather_data.temperature < 60:
             recommendation = "Wear a sweater or jacket."
         else:
             recommendation = "Wear a t-shirt or light clothing."
 
+        return recommendation """
+        # Step 1: Check the gender of the runner and provide general recommendations
+        if user_preferences.gender == "male":
+            recommendation = "T-shirt, shorts, and running shoes."
+        elif user_preferences.gender == "female":
+            recommendation = "Tank top, shorts or leggings, and running shoes."
+        else:
+            recommendation = "Invalid gender."
+
+        # Step 2: Adjust clothing choices based on comfort level
+        if user_preferences.comfort_level == "low":
+            recommendation += " Add additional layers for comfort."
+        elif user_preferences.comfort_level == "mid":
+            recommendation += " Dress comfortably for your run."
+        elif user_preferences.comfort_level == "high":
+            recommendation += " Dress lightly for your run."
+        else:
+            recommendation += " Invalid comfort level."
+        
+        # Step 3: Consider temperature and provide appropriate recommendations
+        if weather_data.temperature < 40:
+            recommendation += " Add layers like a long-sleeve shirt, running tights, and a lightweight jacket."
+        elif 40 <= weather_data.temperature < 60:
+            recommendation += " Wear a long-sleeve shirt and lightweight pants or leggings."
+        elif 60 <= weather_data.temperature < 70:
+            recommendation += " Wear a short-sleeve shirt and shorts or capris."
+        elif weather_data.temperature >= 70:
+            recommendation += " Wear a lightweight tank top and shorts."
+
+        # Step 4: Consider precipitation amount and probability
+        if weather_data.precipitation_probability > 50 and weather_data.precipitation > 0.1:
+            recommendation += " Wear a waterproof or water-resistant jacket and pants."
+        elif weather_data.precipitation_probability < 50 and weather_data.precipitation == 0:
+            recommendation += " No specific rain gear is necessary."
+        
+        # Step 5: Consider cloud coverage and adjust clothing choices accordingly
+        if weather_data.cloudcover > 70 and "overcast" in weather_data.conditions.lower():
+            recommendation += " Wear additional layers to stay warm."
+        elif weather_data.cloudcover < 70 and ("clear" in weather_data.conditions.lower() or "partly cloudy" in weather_data.conditions.lower()):
+            recommendation += " Adjust clothing choices according to the weather."
+
+        # Step 6: Consider wind speed and gust speed
+        if weather_data.windgust > 20 or weather_data.windspeed > 15:
+            recommendation += " Wear a wind-resistant jacket or layer to protect against wind chill."
+        
+        # Step 7: Consider humidity and provide recommendations
+        if weather_data.humidity > 70:
+            recommendation += " Wear moisture-wicking clothing to stay comfortable and avoid excessive sweating."
+
+        # Step 8: Consider UV index and provide recommendations
+        if weather_data.uvindex > 7:
+            recommendation += " Wear sunscreen, a hat, and sunglasses to protect against sunburn and excessive sun exposure."
+        
         return recommendation
 
 
@@ -113,10 +171,27 @@ def parse_weather_data(data: dict) -> WeatherData:
     # Example:
     temperature = data["currentConditions"]["temp"]
     precipitation = data["currentConditions"]["precip"]
+    precipitation_probability = data["currentConditions"]["precipprob"]
+    cloudcover = data["currentConditions"]["cloudcover"]
+    conditions = data["currentConditions"]["conditions"]
+    windgust = data["currentConditions"]["windgust"]
+    windspeed = data["currentConditions"]["windspeed"]
+    datetime = data["currentConditions"]["datetime"]
+    humidity = data["currentConditions"]["humidity"]
+    uvindex = data["currentConditions"]["uvindex"]
+
     # Parse other weather attributes similarly
     weather_data = WeatherData(
         temperature=temperature,
         precipitation=precipitation,
+        precipitation_probability=precipitation_probability,
+        cloudcover = cloudcover,
+        conditions = conditions,
+        windgust = windgust,
+        windspeed = windspeed,
+        datetime = datetime,
+        humidity = humidity,
+        uvindex = uvindex,
         # Set other attributes accordingly
     )
     return weather_data
@@ -134,4 +209,3 @@ def send_recommendation(user_preferences: UserPreferences, weather_data: Weather
     recommendation = recommendation_engine.generate_recommendation(weather_data, user_preferences)
 
     return {"recommendation": recommendation}
-

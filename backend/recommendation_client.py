@@ -8,9 +8,15 @@ data = {
     },
     "weather_data": {
         "temperature": 25.5,
+        "precipitation_probability": 0.0,
         "precipitation": 0.0,
-        "sky_conditions": "clear",
-        "wind_conditions": "calm",
+        "cloudcover": 52.3,
+        "conditions": "clear",
+        "windgust":16.8,
+        "windspeed":15.7,
+        "humidity":62.18,
+        "uvindex":2.0,
+        
         "time_of_day": "morning",
         "humidity_level": 0.6,
         "uv_levels": 7.2
