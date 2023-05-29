@@ -1,8 +1,14 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+
 import requests
 import os
 from dotenv import load_dotenv
+
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import LabelEncoder
+
+
 
 # Load environment variables from .env file
 load_dotenv()
@@ -29,6 +35,26 @@ class ClothingItems(BaseModel):
     hands: str
     legs: str
     feet: str
+
+class ClothingRecommendation:
+    def __init__(self):
+        self.model = RandomForestClassifier()  # Initialize the model
+
+    def train_model(self, X, y):
+        # Train the recommendation model
+        self.model.fit(X, y)
+
+    def generate_recommendation(self, weather_data, user_preferences):
+        # Process the weather_data and user_preferences to generate recommendations
+        # Implement the logic to analyze weather conditions and user preferences
+
+        # Example: Generate a recommendation based on weather temperature
+        if weather_data.temperature < 60:
+            recommendation = "Wear a sweater or jacket."
+        else:
+            recommendation = "Wear a t-shirt or light clothing."
+
+        return recommendation
 
 
 app = FastAPI()
@@ -98,7 +124,14 @@ def parse_weather_data(data: dict) -> WeatherData:
 
 @app.post("/recommendation")
 def send_recommendation(user_preferences: UserPreferences, weather_data: WeatherData):
-    # Logic to generate clothing recommendations based on user preferences and weather data
-    # Return the generated recommendations
-    recommendation = {"outfit": "sweater, jeans, and boots"}  # Placeholder recommendation
-    return recommendation
+    # Initialize the recommendation engine
+    recommendation_engine = ClothingRecommendation()
+
+    # Process user preferences and weather data if necessary
+    # ...
+
+    # Generate clothing recommendations
+    recommendation = recommendation_engine.generate_recommendation(weather_data, user_preferences)
+
+    return {"recommendation": recommendation}
+
