@@ -5,9 +5,11 @@
 ### Application Scope
 - WhatToWear is a web application that provides clothing suggestions for Runs/Walks based on weather conditions.
 - The application will utilize weather data, including temperature, precipitation, sky conditions, wind conditions, time of day, humidity level, and UV levels, to generate appropriate clothing recommendations.
-- The weather data will be fetched from Apple's Visual Crossing API.
+- The weather data will be fetched from the Visual Crossing API.
 - The application will consider user preferences such as gender and desired comfort level (cold/hot) when suggesting clothing options.
 - The application will focus specifically on providing recommendations for Runs/Walks.
+- WhatToWear will be enhanced by a Virtual Running Coach powered by OpenAI's API, offering conversational interfaces for running, fitness, health, and yoga recommendations.
+
 
 ### Requirements
 1. User Interface:
@@ -16,7 +18,7 @@
    - Provide an appealing and intuitive user experience.
 
 2. Weather Data Integration:
-   - Integrate Apple's Visual Crossing API to fetch real-time weather data based on the user's location or a location of their choice.
+   - Integrate the Visual Crossing API to fetch real-time weather data based on the user's location or a location of their choice.
    - Retrieve weather information including temperature, precipitation, sky conditions, wind conditions, time of day, humidity level, and UV levels.
 
 3. Recommendation Engine:
@@ -24,21 +26,25 @@
    - Consider factors such as temperature ranges, precipitation levels, wind conditions, and time of day to determine suitable attire for Runs/Walks.
    - Incorporate gender-specific recommendations if desired.
 
-4. Backend Development:
-   - Develop a backend server using Python and a web framework like Django or Flask to handle user requests, process data, and interact with the Visual Crossing API.
+4. Virtual Running Coach Development:
+   - Develop a Virtual Running Coach that provideds comprehensive support for runners using OpenAI's API.
+   - Implement necessary API endpoints to enhance the UX by offering personalized advice, addressing common queries, and providing recommendations beyond clothing suggestions, thereby promoting holistic fitness and well-being.
+
+5. Backend Development:
+   - Develop a backend server using Python and a web framework like FastAPI to handle user requests, process data, and interact with the Visual Crossing API.
    - Implement necessary API endpoints to fetch weather data and deliver clothing recommendations to the frontend.
 
-5. Frontend Development:
+6. Frontend Development:
    - Create the frontend using React to design and implement the user interface.
    - Integrate the API endpoints to fetch weather data and receive clothing recommendations from the backend.
    - Ensure a responsive and visually appealing design that aligns with the application's purpose.
 
-6. Testing and Debugging:
+7. Testing and Debugging:
    - Implement comprehensive testing strategies to ensure the correctness and reliability of the application's functionalities.
    - Test the integration with the Visual Crossing API and verify the accuracy of the clothing recommendations.
    - Use debugging techniques and tools to identify and resolve any issues or errors.
 
-7. Deployment and Maintenance:
+8. Deployment and Maintenance:
    - Choose a hosting platform or server to deploy your web application.
    - Set up necessary infrastructure and configurations for deployment.
    - Regularly monitor and maintain the application, including updating weather data, addressing any bug fixes or performance improvements, and ensuring the integration with the Visual Crossing API remains functional.
@@ -53,12 +59,12 @@ Let's proceed with designing the application architecture for your WhatToWear we
    - Implement data fetching from the backend API to retrieve weather data and receive clothing recommendations.
 
 2. Backend:
-   - The backend of your application will be developed using Python, utilizing a web framework such as Django or Flask.
+   - The backend of your application will be developed using Python, utilizing a web framework such as FastAPI.
    - Create the necessary backend components to handle user requests, process data, and interact with the Visual Crossing API.
    - Implement API endpoints to receive user preferences, fetch weather data from the Visual Crossing API, and send clothing recommendations to the frontend.
 
 3. Visual Crossing API Integration:
-   - Integrate Apple's Visual Crossing API to fetch real-time weather data based on the user's location or a location of their choice.
+   - Integrate the Visual Crossing API to fetch real-time weather data based on the user's location or a location of their choice.
    - Use the appropriate libraries or modules in Python to make HTTP requests to the Visual Crossing API and retrieve weather information.
    - Process the received weather data and extract the relevant parameters such as temperature, precipitation, sky conditions, wind conditions, time of day, humidity level, and UV levels.
 
@@ -67,18 +73,23 @@ Let's proceed with designing the application architecture for your WhatToWear we
    - Use algorithms and logic to analyze the weather conditions and user preferences and determine the suitable attire for Runs/Walks.
    - Consider factors such as temperature ranges, precipitation levels, wind conditions, and time of day to provide accurate and relevant clothing recommendations.
 
-5. Database (Optional):
+5. Virtual Running Coach:
+   - Develop a separate module that interacts with the recommendation engine.
+   - Use the conversational AI model trained with the OpenAI API to process user queries, extract relevant information, and generate appropriate responses. 
+   - Consider a conversational interface, such as a web-based/mobile-based chat interface, that allows users to engage in natural language conversations with the Virtual Running Coach, facilitating seamless interaction and guidance.
+
+6. Database (Optional):
    - Depending on the requirements of your application, you may consider integrating a database to store user preferences, locations, or historical weather data.
    - Choose a suitable database system such as PostgreSQL or MySQL, and design the database schema accordingly.
    - Implement database operations to store and retrieve data as needed.
 
-6. Deployment and Hosting:
+7. Deployment and Hosting:
    - Select a hosting platform or server to deploy your web application, such as Heroku, AWS, or Azure.
    - Configure the deployment environment and ensure all necessary dependencies are included.
    - Set up appropriate security measures and configurations to protect user data and ensure secure communication with the Visual Crossing API.
 
-7. Third-Party Libraries and Tools:
-   - Explore and utilize relevant Python libraries for web development, such as Django or Flask for the backend, and libraries like requests for making HTTP requests to the Visual Crossing API.
+8. Third-Party Libraries and Tools:
+   - Explore and utilize relevant Python libraries for web development, such as FastAPI for the backend, and libraries like requests for making HTTP requests to the Visual Crossing API.
    - Leverage React libraries and tools for frontend development, such as Axios for making API calls to the backend.
    - Consider additional libraries or tools for UI components, data visualization, or styling to enhance the user experience.
 
