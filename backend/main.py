@@ -1,18 +1,30 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request, HTTPException
+from fastapi.responses import JSONResponse
+
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk.tag import pos_tag
+import random
+
 from pydantic import BaseModel
-from dotenv import load_dotenv
 from typing import Optional
 
 
+from dotenv import load_dotenv
 import requests
 import os
 
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import LabelEncoder
 
+# Download NLTK resources outside of the class
+nltk.download('punkt')  # Tokenizer resource
+nltk.download('averaged_perceptron_tagger')  # Part-of-speech tagger resource
+
+from conversational_flow import conversational_flow
+
 # Load environment variables from .env file
 load_dotenv()
-
 
 
 
@@ -110,6 +122,62 @@ class ClothingRecommendation:
         return recommendation
 
 
+def parse_weather_data(data: dict) -> WeatherData:
+    # Implement the parsing logic to extract relevant weather information from the data dictionary
+    # and populate the WeatherData model
+    # Example:
+    temperature = data["currentConditions"]["temp"]
+    precipitation = data["currentConditions"]["precip"]
+    precipitation_probability = data["currentConditions"]["precipprob"]
+    cloudcover = data["currentConditions"]["cloudcover"]
+    conditions = data["currentConditions"]["conditions"]
+    windgust = data["currentConditions"]["windgust"]
+    windspeed = data["currentConditions"]["windspeed"]
+    datetime = data["currentConditions"]["datetime"]
+    humidity = data["currentConditions"]["humidity"]
+    uvindex = data["currentConditions"]["uvindex"]
+
+    # Parse other weather attributes similarly
+    weather_data = WeatherData(
+        temperature=temperature,
+        precipitation=precipitation,
+        precipitation_probability=precipitation_probability,
+        cloudcover = cloudcover,
+        conditions = conditions,
+        windgust = windgust,
+        windspeed = windspeed,
+        datetime = datetime,
+        humidity = humidity,
+        uvindex = uvindex,
+        # Set other attributes accordingly
+    )
+    return weather_data
+
+
+def get_virtual_coach_response(user_query):
+    # Tokenize the user query
+    tokens = word_tokenize(user_query)
+
+    # Perform part-of-speech tagging
+    tagged_tokens = pos_tag(tokens)
+
+    # Extract keywords from the tagged tokens
+    keywords = [token[0] for token in tagged_tokens if token[1].startswith('NN')]
+
+    # Match the keywords with the conversational flow dictionary
+    for intent, data in conversational_flow['intents'].items():
+        for question in data['questions']:
+            # Tokenize and extract keywords from the question
+            question_tokens = word_tokenize(question)
+            question_keywords = [token for token in question_tokens if token in keywords]
+
+            # Check if the question keywords match with user query keywords
+            if len(question_keywords) == len(keywords):
+                return random.choice(data['responses'])
+
+    return "I'm sorry, but I don't have the information you're looking for."
+
+
 app = FastAPI()
 
 
@@ -160,38 +228,6 @@ def get_weather(location: str):
         return {"error": "Failed to retrieve weather data from the API."}
 
 
-def parse_weather_data(data: dict) -> WeatherData:
-    # Implement the parsing logic to extract relevant weather information from the data dictionary
-    # and populate the WeatherData model
-    # Example:
-    temperature = data["currentConditions"]["temp"]
-    precipitation = data["currentConditions"]["precip"]
-    precipitation_probability = data["currentConditions"]["precipprob"]
-    cloudcover = data["currentConditions"]["cloudcover"]
-    conditions = data["currentConditions"]["conditions"]
-    windgust = data["currentConditions"]["windgust"]
-    windspeed = data["currentConditions"]["windspeed"]
-    datetime = data["currentConditions"]["datetime"]
-    humidity = data["currentConditions"]["humidity"]
-    uvindex = data["currentConditions"]["uvindex"]
-
-    # Parse other weather attributes similarly
-    weather_data = WeatherData(
-        temperature=temperature,
-        precipitation=precipitation,
-        precipitation_probability=precipitation_probability,
-        cloudcover = cloudcover,
-        conditions = conditions,
-        windgust = windgust,
-        windspeed = windspeed,
-        datetime = datetime,
-        humidity = humidity,
-        uvindex = uvindex,
-        # Set other attributes accordingly
-    )
-    return weather_data
-
-
 @app.post("/recommendation")
 def send_recommendation(user_preferences: UserPreferences, weather_data: WeatherData):
     # Initialize the recommendation engine
@@ -204,3 +240,11 @@ def send_recommendation(user_preferences: UserPreferences, weather_data: Weather
     recommendation = recommendation_engine.generate_recommendation(weather_data, user_preferences)
 
     return {"recommendation": recommendation}
+
+
+@app.post('/virtual_coach')
+async def virtual_coach(request: Request):
+    data = await request.json()
+    user_query = data['query']
+    response = get_virtual_coach_response(user_query)
+    return JSONResponse({'response': response})

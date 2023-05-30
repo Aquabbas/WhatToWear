@@ -8,7 +8,7 @@
 - The weather data will be fetched from the Visual Crossing API.
 - The application will consider user preferences such as gender and desired comfort level (cold/hot) when suggesting clothing options.
 - The application will focus specifically on providing recommendations for Runs/Walks.
-- WhatToWear will be enhanced by a Virtual Running Coach powered by OpenAI's API, offering conversational interfaces for running, fitness, health, and yoga recommendations.
+- WhatToWear will be enhanced by a Virtual Running Coach powered by an open-source NLP API, offering conversational interfaces for running, fitness, health, and yoga recommendations.
 
 
 ### Requirements
@@ -27,7 +27,7 @@
    - Incorporate gender-specific recommendations if desired.
 
 4. Virtual Running Coach Development:
-   - Develop a Virtual Running Coach that provideds comprehensive support for runners using OpenAI's API.
+   - Develop a Virtual Running Coach that provideds comprehensive support for runners using an open-source NLP API.
    - Implement necessary API endpoints to enhance the UX by offering personalized advice, addressing common queries, and providing recommendations beyond clothing suggestions, thereby promoting holistic fitness and well-being.
 
 5. Backend Development:
@@ -75,7 +75,7 @@ Let's proceed with designing the application architecture for your WhatToWear we
 
 5. Virtual Running Coach:
    - Develop a separate module that interacts with the recommendation engine.
-   - Use the conversational AI model trained with the OpenAI API to process user queries, extract relevant information, and generate appropriate responses. 
+   - Use the conversational AI model trained with the open-source NLP API to process user queries, extract relevant information, and generate appropriate responses. 
    - Consider a conversational interface, such as a web-based/mobile-based chat interface, that allows users to engage in natural language conversations with the Virtual Running Coach, facilitating seamless interaction and guidance.
 
 6. Database (Optional):
