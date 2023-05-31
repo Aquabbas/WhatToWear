@@ -9,7 +9,6 @@ import random
 from pydantic import BaseModel
 from typing import Optional
 
-
 from dotenv import load_dotenv
 import requests
 import os
